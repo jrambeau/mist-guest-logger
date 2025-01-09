@@ -3,6 +3,8 @@
 Python script to log guest clients data from a Juniper Mist Wi-Fi infrastructure
 For legal purposes in France (guest Internet access log retention for a year)
 
+![screenshot](mist-guests-stats-screenshot01.png)
+
 Authors: Jonathan Rambeau
 
 Date: 03 jan 2025
