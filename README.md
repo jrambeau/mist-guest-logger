@@ -16,11 +16,11 @@ Changelog:
 1. Install python
 2. Check if pip is installed ``` python -m pip --version ```. If not installed, install it: https://pip.pypa.io/en/stable/installing/
 3. Upgrade pip ``` python.exe -m pip install --upgrade pip ```
-4. Install additionnal required libraries :
+4. Install additionnal required libraries:
     1. ```pip install -r requirements.txt```
-5. Customize file apivariables.py with your API Token and Organization ID. I recommend to use a Token generated from a service account of your Organization.
+5. Customize file apivariables.py with your API Token and Organization ID. I recommend using a Token generated from a service account of your Organization (and not an actual user account)
 
 ## 2. Run the script
 
 1. From a terminal, start the script: ``` mist-guests-stats.py ```
-2. Alternatively, use the Powershell script run-mist-guests-stats.ps1 if you want to configure a scheduled task on a Windows machine
+2. Alternatively, use the Powershell script ```run-mist-guests-stats.ps1``` if you want to configure a scheduled task on a Windows machine
