@@ -1,6 +1,6 @@
 # Juniper Mist - Guest information export script
 
-Python script to log guest clients data from a Juniper Mist Wi-Fi infrastructure 
+Python script to log guest clients data from a Juniper Mist Wi-Fi infrastructure
 For legal purposes in France (guest Internet access log retention for a year)
 
 Authors: Jonathan Rambeau
