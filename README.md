@@ -1,5 +1,7 @@
 # Juniper Mist - Guest information export script
-# For legal purposes in France
+
+Python script to log guest clients data from a Juniper Mist Wi-Fi infrastructure 
+For legal purposes in France (guest Internet access log retention for a year)
 
 Authors: Jonathan Rambeau
 
@@ -7,7 +9,7 @@ Date: 03 jan 2025
 
 Changelog:
 - 27 jun 2024: creation
-- 03 jan 2025: solved an issue where too many API calls where being made (when getting client details using RESTfull API) 
+- 03 jan 2025: solved an issue where too many API calls where being made and trigger throttling (when getting client details using RESTFUL APIs) 
 
 ## 1. Installation
 
