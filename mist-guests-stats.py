@@ -91,20 +91,22 @@ def process_message(ws, message):
             guest_identifier = {'mac': message['data']['mac'], 'ip': message['data']['ip']}
             guest_existe = any(element == guest_identifier for element in ws.guest_list)
             if guest_existe == False:
-                logging.info(f"Nouvel invité détecté: {message['data']['mac']} sur le site {ws.current_siteid}")
-                ws.guest_list.append(guest_identifier) # Ajout du guest dans la liste des guests logués
-
+                logging.info(f"Nouvel invité détecté: {message['data']['mac']} {message['data']['ip']} sur le site {ws.current_siteid} {next((item['name'] for item in ws.sites if item['id'] == ws.current_siteid), None)}")
                 # Une requête Get est nécessaire sur l'adresse MAC du client car la balise [guest] n'est pas présente dans la réponse du Websocket
                 headers = {'Content-Type': 'application/json', 'Authorization': f"Token {token}"}
                 clientstat_url = '{0}sites/{1}/stats/clients/{2}'.format(mist_url,ws.current_siteid,message['data']['mac'])
                 logging.info(f"Envoi d'une requête GET pour obtenir les infos supplémentaires du guest {message['data']['mac']}")
                 response_clientstat = requests.get(clientstat_url, headers=headers) #Pour la liste des clients actuellement connectés et leur statistiques (dont l'adresse IP)
+                logging.info(f"Code retour de la requête GET : {response_clientstat.status_code}")
                 if response_clientstat.status_code == 200:
                     # Parse de la réponse
                     clientstat = json.loads(response_clientstat.content.decode('utf-8'))
-
                     # Appel de la fonction handle_guest_data pour récupérer les informations supplémentaires du guest
-                    handle_guest_data(ws, clientstat)
+                    logging.info(f"Requête GET OK, go pour gestion des données pour ce guest")
+                    handle_guest_data(ws, clientstat, guest_identifier)
+                else:
+                    # Erreur dans la requête GET. Le guest sera traité dans une prochaine itération.
+                    logging.info(f"Erreur de gestion des données pour ce guest en raison de l'échec de la requête GET. Le guest sera traité lors du prochain message envoyé par le Websocket")
             else:
                 logging.info(f"Guest déjà enregistré dans les logs")
         else:
@@ -118,8 +120,8 @@ def process_message(ws, message):
 
 
 # Fonction pour gérer les données des invités
-def handle_guest_data(ws, clientstat):
-    logging.info(f"Extraction des informations pour le nouveau guest {clientstat['mac']}")
+def handle_guest_data(ws, clientstat, guest_identifier):
+    logging.info(f"Fonction handle_guest_data : extraction des informations pour le nouveau guest {clientstat['mac']}")
 
     # Extraire les données de l'invité
     guest_data = {
@@ -157,6 +159,9 @@ def handle_guest_data(ws, clientstat):
         logging.error(f"Échec de l'écriture des données de l'invité dans le fichier: {e}")
     except Exception as e:
         logging.error(f"Une erreur s'est produite lors de la sauvegarde des données de l'invité: {e}")
+
+    ws.guest_list.append(guest_identifier) # Ajout du guest dans la liste des guests logués
+
 
 
 # Fonction de rappel pour les messages WebSocket
