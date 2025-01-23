@@ -28,8 +28,10 @@ There is a very important line on this script that is used to filter on the actu
 - I look for the [is_guest] tag from the client information. If the tag is present, we are definitely looking at a guest and we want to log that.
 - Sometimes the [is_guest] tag is not present, for example with manually registered guest. In that case, I am also looking for some keywords on the SSID name to try and catch the Guest SSID: "invite", "guest", "hotspot". Of course, you should modify these if they are not going to match your infrastructure.
 
-``` Line 86
-``` if (message.get('data', {}).get('is_guest')) or ('guest' in message['data'].get('ssid', '').lower()) or ('invite' in message['data'].get('ssid', '').lower()) or ('hotspot' in message['data'].get('ssid', '').lower()):```
+```python
+```Line 86
+```if (message.get('data', {}).get('is_guest')) or ('guest' in message['data'].get('ssid', '').lower()) or ('invite' in message['data'].get('ssid', '').lower()) or ('hotspot' in message['data'].get('ssid', '').lower()):
+```
 
 ## 3. Run the script
 
