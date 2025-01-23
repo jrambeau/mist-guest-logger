@@ -35,5 +35,5 @@ There is a very important line on this script that is used to filter on the actu
 
 ## 3. Run the script
 
-1. From a terminal, start the script: ``` mist-guest-logger.py ```
-2. Alternatively, use the Powershell script ```run-mist-guest-logger.ps1``` if you want to configure a scheduled task on a Windows machine
+1. From a terminal, start the script: ``` python mist-guest-logger.py ```
+2. Alternatively, use the Powershell script ```.\run-mist-guest-logger.ps1``` if you want to configure a scheduled task on a Windows machine
