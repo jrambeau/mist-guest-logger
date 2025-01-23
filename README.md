@@ -1,9 +1,9 @@
-# Juniper Mist - Guest clients data export script
+# Juniper Mist - Guest logger
 
 Python script to log guest clients data from a Juniper Mist Wi-Fi infrastructure
 For legal purposes in France (guest Internet access log retention for a year)
 
-![screenshot](mist-guests-stats-screenshot01.png)
+![screenshot](mist-guest-logger-screenshot01.png)
 
 Authors: Jonathan Rambeau
 
@@ -24,5 +24,5 @@ Changelog:
 
 ## 2. Run the script
 
-1. From a terminal, start the script: ``` mist-guests-stats.py ```
-2. Alternatively, use the Powershell script ```run-mist-guests-stats.ps1``` if you want to configure a scheduled task on a Windows machine
+1. From a terminal, start the script: ``` mist-guest-logger.py ```
+2. Alternatively, use the Powershell script ```run-mist-guest-logger.ps1``` if you want to configure a scheduled task on a Windows machine

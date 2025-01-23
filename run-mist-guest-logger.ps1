@@ -1,6 +1,6 @@
 while ($true) {
     try {
-        python mist-guests-stats.py
+        python mist-guest-logger.py
     } catch {
         Write-Host "Le script Python a échoué: $_"
     }

@@ -151,7 +151,7 @@ def handle_guest_data(ws, clientstat, guest_identifier):
 
     # Ajouter les données de l'invité à un fichier JSON unique
     try:
-        filename = os.path.join(script_dir, "mist-guests-stats-logs-"+datetime.now().strftime('%Y-%m-%d')+".json")
+        filename = os.path.join(script_dir, "mist-guests-logger-logs-"+datetime.now().strftime('%Y-%m-%d')+".json")
         with open(filename, "a+") as file:
             json.dump(guest_data, file, indent=4)  # Écrire les données mises à jour dans le fichier
         logging.info(f"Données de l'invité {guest_data['mac']} ajoutées à {filename}.")
