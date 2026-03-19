@@ -7,9 +7,11 @@ import sys
 import re
 import logging
 import signal
+import ssl
+import certifi
 from logging.handlers import RotatingFileHandler
 from datetime import datetime, timezone
-from apivariables import mist_url, token, org_id
+from config import mist_url, token, org_id, guest_ssids
 
 # Déterminer le répertoire du script
 script_dir = os.path.dirname(os.path.abspath(__file__))
@@ -83,7 +85,9 @@ def process_message(ws, message):
         message['data'] = json.loads(message['data'])
 
         # On vérifie si le User est un guest ou non
-        if (message.get('data', {}).get('is_guest')) or ('guest' in message['data'].get('ssid', '').lower()) or ('invite' in message['data'].get('ssid', '').lower()) or ('hotspot' in message['data'].get('ssid', '').lower()):
+        client_ssid = message['data'].get('ssid', '')
+        is_guest_ssid = any(ssid.lower() == client_ssid.lower() for ssid in guest_ssids)
+        if message.get('data', {}).get('is_guest') or is_guest_ssid:
             
             logging.info(f"User {message['data']['mac']} EST un guest")
 
@@ -233,7 +237,7 @@ if __name__ == "__main__":
                                                 on_close=on_close)
                     ws.sites = sites
                     ws.guest_list = guest_list
-                    ws.run_forever()
+                    ws.run_forever(sslopt={"ca_certs": certifi.where(), "cert_reqs": ssl.CERT_REQUIRED})
 
                 logging.info(f"reconnect [%s]" % c)
                 time.sleep(5)
